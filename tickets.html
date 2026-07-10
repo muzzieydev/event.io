@@ -1,0 +1,417 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buy Tickets — SkateFest 2025</title>
+
+  <!-- QR Generator + Screenshot Tool -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#fff;
+
+    background:
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+        url("shop.jpg") center center / cover no-repeat fixed;
+
+    overflow-x:hidden;
+}
+
+    .container {
+      max-width: 900px;
+      margin: 70px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 32px;
+      font-weight: 800;
+      color: #c90101;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 34px;
+      color: #eff1f3;
+    }
+
+    .ticket-option {
+      background:#111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+
+    .ticket-option:hover {
+      transform: scale(1.02);
+    }
+
+    .ticket-option h2 {
+      color: #3b82f6;
+    }
+
+    .ticket-option button {
+      padding: 12px 18px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+
+    .ticket-option button:hover {
+      background: #c90101;
+    }
+
+    .back-home {
+      display: block;
+      width: fit-content;
+      margin: 40px auto;
+      background: #c90101;
+      padding: 12px 18px;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .back-home:hover {
+      background: #334155;
+    }
+
+    /* POPUP LAYER */
+    .popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 10px;
+    }
+
+    /* POPUP BOX */
+ .popup-content{
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+    width:100%;
+    max-width:450px;
+
+    max-height:90vh;      /* Prevents it from being taller than the screen */
+    overflow-y:auto;      /* Allows scrolling if content is too tall */
+
+    border:1px solid #222;
+    animation:popIn .25s ease;
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+
+    @keyframes popIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+      font-size: 28px;
+      color: #d60606;
+    }
+
+    .form-box input,
+    .form-box select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: none;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .gen-btn {
+      width: 100%;
+      padding: 12px;
+      background: #c90101;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .gen-btn:hover {
+      background: #484acf;
+    }
+
+    /* TICKET STYLE */
+    .ticket{
+    display:none;
+    width:300px;          /* Change this to your preferred size */
+    max-width:100%;
+    margin:20px auto;
+    padding:18px;
+    border-radius:15px;
+    background: #747488;
+    color:#fff;
+    position:relative;
+    text-align:left;
+    box-shadow:0 8px 20px rgba(0,0,0,.4);
+    font-family:'Segoe UI',sans-serif;
+}
+
+    .ticket .logo {
+      width: 60px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .ticket h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: #ecaa52;
+      letter-spacing: 1px;
+    }
+
+    .ticket p {
+      margin: 6px 0;
+      font-size: 15px;
+    }
+
+  #qrCanvas{
+    display:block;
+    width:100px;
+    height:100px;
+    margin:15px auto;
+}
+.download-btn{
+    display:none;
+    width:100%;
+    max-width:300px;
+    margin:20px auto 0;
+    padding:14px;
+
+    background:#c90101;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.download-btn:hover{
+    background:#900000;
+    transform:translateY(-2px);
+}
+    /* RESPONSIVE */
+    @media(max-width: 600px) {
+      .ticket {
+        padding: 15px;
+      }
+
+      .ticket h3 {
+        font-size: 20px;
+      }
+
+      .ticket p {
+        font-size: 14px;
+      }
+
+      .ticket-option button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MAIN SECTION -->
+  <div class="container">
+    <h1>Get Your Free Tickets </h1>
+
+    <p>Secure your spot at SkateMyHood 2026! Get a ticket option below and generate your official event pass.</p>
+
+    <!-- Ticket Options -->
+    <div class="ticket-option">
+      <h2>General Admission</h2>
+      <p>Full access to outdoor & indoor events.</p>
+      <p><b>Price: R0.00</b></p>
+      <button onclick="openTicketPopup('General Admission', 0.00)">Buy General Admission</button>
+    </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-home"> Back to Website</a>
+
+  <!-- POPUP SYSTEM -->
+  <div id="ticketPopup" class="popup">
+    <div class="popup-content">
+
+      <span class="close" onclick="closePopup()">&times;</span>
+
+      <h2>Ticket Purchase</h2>
+
+      <div class="form-box">
+        <input type="text" id="buyerName" placeholder="Enter Full Name" />
+        <select id="ticketType" onchange="updatePrice()"></select>
+        <button class="gen-btn" onclick="generateTicket()">Generate Ticket</button>
+      </div>
+
+      <!-- Ticket Preview -->
+      <div id="ticket" class="ticket">
+        <img src="./logo.png" class="logo" crossorigin="anonymous">
+
+        <h3>My Hood Different PASS</h3>
+
+        <p><strong>Name:</strong> <span id="tName"></span></p>
+        <p><strong>Type:</strong> <span id="tType"></span></p>
+        <p><strong>Price:</strong> R<span id="tPrice"></span></p>
+        <p><strong>Seat:</strong> <span id="tSeat"></span></p>
+        <p><strong>Ticket ID:</strong> <span id="tID"></span></p>
+        <p><strong>Date:</strong> 08 August 2026</p>
+        <p><strong>Location:</strong> Tembisa</p>
+
+        <canvas id="qrCanvas"></canvas>   
+
+</div> <!-- End Ticket -->
+<button
+    id="downloadBtn"
+    class="download-btn"
+    onclick="downloadTicket()">
+    Download Ticket
+</button>
+<script>
+const ticketOptions = [
+  { type: 'General Admission', price: 0.00 },
+];
+
+let selectedType = '';
+let selectedPrice = 0;
+
+/* Open Popup */
+function openTicketPopup(type, price) {
+  selectedType = type;
+  selectedPrice = price;
+
+  // Populate dropdown with all ticket options
+  const select = document.getElementById("ticketType");
+  select.innerHTML = '';
+  ticketOptions.forEach(opt => {
+    const option = document.createElement('option');
+    option.value = opt.type;
+    option.dataset.price = opt.price;
+    option.textContent = `${opt.type} – R${opt.price}`;
+    if (opt.type === type) option.selected = true;
+    select.appendChild(option);
+  });
+
+  document.getElementById("ticketPopup").style.display = "flex";
+}
+
+/* Close Popup */
+function closePopup() {
+  document.getElementById("ticketPopup").style.display = "none";
+}
+
+/* Update price when dropdown changes */
+function updatePrice() {
+  const select = document.getElementById("ticketType");
+  selectedType = select.value;
+  selectedPrice = parseInt(select.options[select.selectedIndex].dataset.price);
+}
+
+/* Generate Ticket */
+function generateTicket() {
+  const name = document.getElementById("buyerName").value.trim();
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+
+const ticketID = "SMH-2026-" + Math.random().toString(36).substr(2,6).toUpperCase();
+  const seat = "A" + Math.floor(Math.random() * 50 + 1);
+
+  document.getElementById("tName").innerText = name;
+  document.getElementById("tType").innerText = selectedType;
+  document.getElementById("tPrice").innerText = selectedPrice;
+  document.getElementById("tSeat").innerText = seat;
+  document.getElementById("tID").innerText = ticketID;
+
+  new QRious({
+    element: document.getElementById("qrCanvas"),
+    value: `
+Skate My Hood 2026
+Name: ${name}
+Ticket: ${ticketID}
+Type: ${selectedType}
+Date: 08 August 2026
+Location: Tembisa
+`,
+    size: 120
+  });
+
+document.getElementById("ticket").style.display = "block";
+document.getElementById("downloadBtn").style.display = "block";
+
+document.querySelector(".gen-btn").disabled = true;
+document.querySelector(".gen-btn").innerHTML = "✓ Ticket Generated";
+  
+}
+
+/* Download Ticket */
+async function downloadTicket() {
+
+    const ticket = document.getElementById("ticket");
+    const name = document.getElementById("tName").innerText.replace(/\s+/g, "_");
+
+    try {
+
+        const canvas = await html2canvas(ticket, {
+            scale: 3,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#111"
+        });
+
+        const link = document.createElement("a");
+        link.download = `SkateMyHood-${name}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+    } catch(err) {
+        console.error(err);
+        alert("Unable to download ticket.");
+    }
+    setTimeout(() => {
+    closePopup();
+}, 500);
+}
+
+</script>
+
+</body>
+</html>
