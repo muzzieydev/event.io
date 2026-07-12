@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <title>JPEG | Skate My Hood POP UP</title>
 <style>
 body{
@@ -44,7 +45,88 @@ section{padding:70px 8%}
     border-radius:16px;
 }
 
+.instagram-section{
+    padding:60px 8%;
+}
 
+.instagram-card{
+    max-width:700px;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+
+    padding:25px 30px;
+
+    text-decoration:none;
+    color:#fff;
+
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+
+    transition:.35s;
+}
+
+.instagram-card:hover{
+    transform:translateY(-6px);
+    border-color:#8a5830;
+    box-shadow:0 20px 45px rgba(225,48,108,.35);
+}
+
+.instagram-card .fa-instagram{
+    font-size:55px;
+    color:#7e4457;
+    flex-shrink:0;
+}
+
+.instagram-text{
+    flex:1;
+}
+
+.instagram-text h2{
+    margin:0;
+    font-size:26px;
+}
+
+.instagram-text p{
+    margin:10px 0;
+    color:#ccc;
+    text-align:left;
+}
+
+.instagram-text span{
+    color:#995c2a;
+    font-weight:bold;
+    font-size:17px;
+}
+
+.instagram-card .fa-arrow-right{
+    font-size:22px;
+    color:#fff;
+    transition:.3s;
+}
+
+.instagram-card:hover .fa-arrow-right{
+    transform:translateX(8px);
+}
+
+@media(max-width:768px){
+
+    .instagram-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .instagram-text p{
+        text-align:center;
+    }
+
+}
 .featured h2{
 
 font-size:30px;
@@ -76,7 +158,28 @@ footer{
 <div class="card"><h3> After Event</h3><p>6:00 PM - 1:00 AM</p></div>
 </div>
 </section>
+<section class="instagram-section">
 
+    <a href="https://www.instagram.com/_yow_sup/"
+       target="_blank"
+       class="instagram-card">
+
+        <i class="fab fa-instagram"></i>
+
+        <div class="instagram-text">
+            <h2>Follow Us on Instagram</h2>
+            <p>
+                Get event updates, venue announcements, sponsor reveals,
+                skate clips and live coverage.
+            </p>
+            <span>_yow_sup</span>
+        </div>
+
+        <i class="fas fa-arrow-right"></i>
+
+    </a>
+
+</section>
 <section>
 <h2>Register a Stall</h2>
 <p>If you're an artist, musician, tattoo artist, designer or brand, WhatsApp <strong>+27 69 898 0677</strong>.</p>
