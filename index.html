@@ -11,7 +11,7 @@ body{
     color:#fff;
 
     background:
-        linear-gradient(rgba(0,0,0,.0), rgba(0,0,0,.0)),
+        linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
         url("shop.jpg") center center / cover no-repeat fixed;
 
     overflow-x:hidden; 
@@ -27,13 +27,13 @@ header{
 
     background:
         linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.55)),
-        url("poster.png") center center/cover no-repeat;
+        url("live art.png") center center/cover no-repeat;
 
     position:relative;
 }
 h1{font-size:2rem;margin:0;color:#fff}
 span{color:#e10600}
-.btn{display:inline-block;margin-top:30px;padding:16px 32px;background:#e10600;color:#fff;text-decoration:none;border-radius:40px}
+.btn{display:inline-block;margin-top:30px;padding:16px 32px;background:#5c2e2d;color:#fff;text-decoration:none;border-radius:40px}
 section{padding:70px 8%}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 .card{
@@ -43,134 +43,7 @@ section{padding:70px 8%}
     padding:20px;
     border-radius:16px;
 }
-/* Featured Slider */
-.featured{
-    padding:80px 0;
-    overflow:hidden;
-}
 
-.featured h2{
-    text-align:center;
-    margin-bottom:40px;
-    font-size:40px;
-}
-
-.slider{
-    overflow:hidden;
-    width:100%;
-}
-
-.slide-track{
-    display:flex;
-    width:max-content;
-    animation:move 28s linear infinite;
-}
-
-.slide-track:hover{
-    animation-play-state:paused;
-}
-
-.slide{
-
-    width:350px;
-    height:500px;
-
-    margin-right:25px;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    position:relative;
-
-    flex-shrink:0;
-
-    cursor:pointer;
-
-}
-
-.slide img{
-
-    width:100%;
-    height:100%;
-    object-fit:cover;
-
-    transition:.5s;
-
-}
-
-.slide:hover img{
-
-    transform:scale(1.12);
-
-}
-
-.overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:linear-gradient(transparent, rgba(0,0,0,.92));
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-end;
-
-    padding:30px;
-
-}
-
-.overlay h3{
-
-    font-size:28px;
-
-    margin:0;
-
-    color:white;
-
-}
-
-.overlay p{
-
-    color:#ddd;
-
-    margin-top:8px;
-
-}
-
-.slide:hover{
-
-    box-shadow:0 25px 60px rgba(225,6,0,.4);
-
-}
-
-@keyframes move{
-
-    from{
-
-        transform:translateX(0);
-
-    }
-
-    to{
-
-        transform:translateX(-50%);
-
-    }
-
-}
-
-@media(max-width:768px){
-
-.slide{
-
-width:250px;
-height:360px;
-
-}
 
 .featured h2{
 
@@ -178,7 +51,7 @@ font-size:30px;
 
 }
 
-}
+
 footer{
     text-align:center;
     padding:20px;
@@ -196,76 +69,11 @@ footer{
 <a class="btn" href="tickets.html">SECURE FREE TICKET</a>
 </div>
 </header>
-<section class="featured">
-
-    <h2>Featured SPONSERS</h2>
-
-    <div class="slider">
-
-        <div class="slide-track">
-
-            <div class="slide">
-                <img src="skae.png" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>Local Crews</p>
-                </div>
-            </div>
-
-            <div class="slide">
-                <img src="lie art.png" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>Live Painting</p>
-                </div>
-            </div>
-
-            <div class="slide">
-                <img src="fahin.jpg" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>Streetwear Brands Pop-up</p>
-                </div>
-            </div>
-
-            <div class="slide">
-                <img src="tattoo.jpg" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>Live Tattoos</p>
-                </div>
-            </div>
-
-            <div class="slide">
-                <img src="music.jpg" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>Basketball Tournament</p>
-                </div>
-            </div>
-        
-            <div class="slide">
-                <img src="music.pg" alt="">
-                <div class="overlay">
-                    <h3>COMMING SOON!</h3>
-                    <p>DJs & Performers</p>
-                </div>
-            </div>
-
-            <!-- Duplicate these same five cards again for a seamless loop -->
-
-        </div>
-
-    </div>
-
-</section>
-
 <section>
 <h2>Experience</h2>
 <div class="cards">
-<div class="card"><h3> Basketball</h3><p>9:00 AM - 1:00 PM</p></div>
-<div class="card"><h3> Skate Jam + Pop Up</h3><p>1:00 PM - 6:00 PM</p></div>
-<div class="card"><h3> After Party</h3><p>6:00 PM - 1:00 AM</p></div>
+<div class="card"><h3> Skate Jam + Pop Up</h3><p>10:00 AM - 6:00 PM</p></div>
+<div class="card"><h3> After Event</h3><p>6:00 PM - 1:00 AM</p></div>
 </div>
 </section>
 
