@@ -37,12 +37,29 @@ body{
       color: #c90101;
     }
 
-    p {
-      text-align: center;
-      margin-bottom: 34px;
-      color: #eff1f3;
-    }
+.container > p{
+    text-align:center;
+    margin-bottom:34px;
+    color:#eff1f3;
+}
+    .ticket-header{
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    padding-bottom:15px;
+    margin-bottom:15px;
+}
 
+.ticket-header h3{
+    margin:10px 0 5px;
+    color:#ecaa52;
+}
+
+.pass-title{
+    margin:0;
+    color:#ccc;
+    font-size:13px;
+    letter-spacing:2px;
+}
     .ticket-option {
       background:#111;
       padding: 20px;
@@ -227,30 +244,23 @@ border:2px solid #c90101;
     margin-top:20px;
 }
 
-.info-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:15px;
-    padding:8px 0;
+.ticket-header{
+    text-align:center;
     border-bottom:1px solid rgba(255,255,255,.15);
+    padding-bottom:15px;
+    margin-bottom:15px;
 }
 
-.info-row:last-child{
-    border-bottom:none;
-}
-
-.label{
-    width:90px;
-    font-weight:bold;
+.ticket-header h3{
+    margin:10px 0 5px;
     color:#ecaa52;
 }
 
-.value{
-    flex:1;
-    text-align:right;
-    color:white;
-    word-break:break-word;
+.pass-title{
+    margin:0;
+    color:#ccc;
+    font-size:13px;
+    letter-spacing:2px;
 }
 .download-btn:hover{
     background:#900000;
@@ -311,8 +321,7 @@ border:2px solid #c90101;
       </div>
 
       <!-- Ticket Preview -->
-      <div id="ticket" class="ticket">
-        <img src="./logo.png" class="logo" crossorigin="anonymous">
+  
 
       <div class="ticket-header">
 
@@ -474,7 +483,7 @@ async function downloadTicket() {
     try {
 
         const canvas = await html2canvas(ticket, {
-            scale: 3,
+            scale: 4,
             useCORS: true,
             allowTaint: true,
             backgroundColor: "#111"
