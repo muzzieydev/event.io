@@ -222,7 +222,35 @@ body{
     cursor:pointer;
     transition:.3s;
 }
+.ticket-info{
+    margin-top:20px;
+}
 
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.info-row:last-child{
+    border-bottom:none;
+}
+
+.label{
+    width:90px;
+    font-weight:bold;
+    color:#ecaa52;
+}
+
+.value{
+    flex:1;
+    text-align:right;
+    color:white;
+    word-break:break-word;
+}
 .download-btn:hover{
     background:#900000;
     transform:translateY(-2px);
@@ -286,15 +314,47 @@ body{
         <img src="./logo.png" class="logo" crossorigin="anonymous">
 
         <h3>My Hood Different PASS</h3>
+<div class="ticket-info">
 
-        <p><strong>Name:</strong> <span id="tName"></span></p>
-        <p><strong>Type:</strong> <span id="tType"></span></p>
-        <p><strong>Price:</strong> R<span id="tPrice"></span></p>
-        <p><strong>Seat:</strong> <span id="tSeat"></span></p>
-        <p><strong>Ticket ID:</strong> <span id="tID"></span></p>
-        <p><strong>Date:</strong> 08 August 2026</p>
-        <p><strong>Location:</strong> 3 Mmamashianoke St
-Thembisa</p>
+    <div class="info-row">
+        <span class="label">Name</span>
+        <span class="value" id="tName"></span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Ticket</span>
+        <span class="value" id="tType"></span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Price</span>
+        <span class="value">R<span id="tPrice"></span></span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Seat</span>
+        <span class="value" id="tSeat"></span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Ticket ID</span>
+        <span class="value" id="tID"></span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Date</span>
+        <span class="value">08 August 2026</span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Venue</span>
+        <span class="value">
+            3 Mmamashianoke St<br>
+            Tembisa
+        </span>
+    </div>
+
+</div>
 
         <canvas id="qrCanvas"></canvas>   
 
