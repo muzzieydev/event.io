@@ -422,12 +422,7 @@ const ticketID = "SMH-2026-" + Math.random().toString(36).substr(2,6).toUpperCas
   document.getElementById("tSeat").innerText = seat;
   document.getElementById("tID").innerText = ticketID;
 
-  const data = {
-    name: name,
-    type: selectedType,
-    ticketID: ticketID,
-    seat: seat
-};
+
 
 fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
     method: "POST",
