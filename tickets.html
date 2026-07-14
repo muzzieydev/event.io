@@ -172,7 +172,8 @@ body{
     margin:20px auto;
     padding:15px;
     border-radius:15px;
-    background: #747488;
+   background:#111;
+border:2px solid #c90101;
     color:#fff;
     position:relative;
     text-align:left;
@@ -313,7 +314,15 @@ body{
       <div id="ticket" class="ticket">
         <img src="./logo.png" class="logo" crossorigin="anonymous">
 
-        <h3>My Hood Different PASS</h3>
+      <div class="ticket-header">
+
+<img src="logo.png" class="logo">
+
+<h3>MY HOOD DIFFERENT</h3>
+
+<p>OFFICIAL EVENT PASS</p>
+
+</div>
 <div class="ticket-info">
 
     <div class="info-row">
@@ -423,7 +432,12 @@ const ticketID = "SMH-2026-" + Math.random().toString(36).substr(2,6).toUpperCas
   document.getElementById("tID").innerText = ticketID;
 
 
-
+  const data = {
+    name: name,
+    type: selectedType,
+    ticketID: ticketID,
+    seat: seat
+};
 fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
     method: "POST",
     body: JSON.stringify(data)
@@ -450,16 +464,6 @@ document.querySelector(".gen-btn").disabled = true;
 document.querySelector(".gen-btn").innerHTML = "✓ Ticket Generated";
   
 }
-const data = {
-    name: name,
-    type: selectedType,
-    ticketID: ticketID,
-    seat: seat
-};
-
-fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
 });
 /* Download Ticket */
 async function downloadTicket() {
