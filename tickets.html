@@ -37,29 +37,12 @@ body{
       color: #c90101;
     }
 
-.container > p{
-    text-align:center;
-    margin-bottom:34px;
-    color:#eff1f3;
-}
-    .ticket-header{
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    padding-bottom:15px;
-    margin-bottom:15px;
-}
+    p {
+      text-align: center;
+      margin-bottom: 34px;
+      color: #eff1f3;
+    }
 
-.ticket-header h3{
-    margin:10px 0 5px;
-    color:#ecaa52;
-}
-
-.pass-title{
-    margin:0;
-    color:#ccc;
-    font-size:13px;
-    letter-spacing:2px;
-}
     .ticket-option {
       background:#111;
       padding: 20px;
@@ -184,32 +167,31 @@ body{
     /* TICKET STYLE */
     .ticket{
     display:none;
-    width:380px;          /* Change this to your preferred size */
+    width:300px;          /* Change this to your preferred size */
     max-width:100%;
     margin:20px auto;
-    padding:15px;
+    padding:18px;
     border-radius:15px;
-   background:#111;
-border:2px solid #c90101;
+    background: #747488;
     color:#fff;
     position:relative;
     text-align:left;
     box-shadow:0 8px 20px rgba(0,0,0,.4);
     font-family:'Segoe UI',sans-serif;
 }
-.ticket .logo{
-    width:55px;
-    position:absolute;
-    top:15px;
-    right:15px;
-}
+
+    .ticket .logo {
+      width: 60px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
 
     .ticket h3 {
       margin-top: 0;
       font-size: 22px;
       color: #ecaa52;
       letter-spacing: 1px;
-      padding-right:75px;
     }
 
     .ticket p {
@@ -240,28 +222,7 @@ border:2px solid #c90101;
     cursor:pointer;
     transition:.3s;
 }
-.ticket-info{
-    margin-top:20px;
-}
 
-.ticket-header{
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    padding-bottom:15px;
-    margin-bottom:15px;
-}
-
-.ticket-header h3{
-    margin:10px 0 5px;
-    color:#ecaa52;
-}
-
-.pass-title{
-    margin:0;
-    color:#ccc;
-    font-size:13px;
-    letter-spacing:2px;
-}
 .download-btn:hover{
     background:#900000;
     transform:translateY(-2px);
@@ -321,58 +282,18 @@ border:2px solid #c90101;
       </div>
 
       <!-- Ticket Preview -->
-  
+      <div id="ticket" class="ticket">
+        <img src="./logo.png" class="logo" crossorigin="anonymous">
 
-      <div class="ticket-header">
+        <h3>My Hood Different PASS</h3>
 
-<img src="logo.png" class="logo">
-
-<h3>MY HOOD DIFFERENT</h3>
-
-<p>OFFICIAL EVENT PASS</p>
-
-</div>
-<div class="ticket-info">
-
-    <div class="info-row">
-        <span class="label">Name</span>
-        <span class="value" id="tName"></span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Ticket</span>
-        <span class="value" id="tType"></span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Price</span>
-        <span class="value">R<span id="tPrice"></span></span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Seat</span>
-        <span class="value" id="tSeat"></span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Ticket ID</span>
-        <span class="value" id="tID"></span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Date</span>
-        <span class="value">08 August 2026</span>
-    </div>
-
-    <div class="info-row">
-        <span class="label">Venue</span>
-        <span class="value">
-            3 Mmamashianoke St<br>
-            Tembisa
-        </span>
-    </div>
-
-</div>
+        <p><strong>Name:</strong> <span id="tName"></span></p>
+        <p><strong>Type:</strong> <span id="tType"></span></p>
+        <p><strong>Price:</strong> R<span id="tPrice"></span></p>
+        <p><strong>Seat:</strong> <span id="tSeat"></span></p>
+        <p><strong>Ticket ID:</strong> <span id="tID"></span></p>
+        <p><strong>Date:</strong> 08 August 2026</p>
+        <p><strong>Location:</strong> Tembisa</p>
 
         <canvas id="qrCanvas"></canvas>   
 
@@ -440,13 +361,13 @@ const ticketID = "SMH-2026-" + Math.random().toString(36).substr(2,6).toUpperCas
   document.getElementById("tSeat").innerText = seat;
   document.getElementById("tID").innerText = ticketID;
 
-
   const data = {
     name: name,
     type: selectedType,
     ticketID: ticketID,
     seat: seat
 };
+
 fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
     method: "POST",
     body: JSON.stringify(data)
@@ -460,8 +381,7 @@ Name: ${name}
 Ticket: ${ticketID}
 Type: ${selectedType}
 Date: 08 August 2026
-Location: 3 Mmamashianoke St
-Thembisa
+Location: Tembisa
 `,
     size: 120
   });
@@ -473,7 +393,17 @@ document.querySelector(".gen-btn").disabled = true;
 document.querySelector(".gen-btn").innerHTML = "✓ Ticket Generated";
   
 }
+const data = {
+    name: name,
+    type: selectedType,
+    ticketID: ticketID,
+    seat: seat
+};
 
+fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+});
 /* Download Ticket */
 async function downloadTicket() {
 
@@ -483,7 +413,7 @@ async function downloadTicket() {
     try {
 
         const canvas = await html2canvas(ticket, {
-            scale: 4,
+            scale: 3,
             useCORS: true,
             allowTaint: true,
             backgroundColor: "#111"
