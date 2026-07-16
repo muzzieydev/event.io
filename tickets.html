@@ -112,7 +112,9 @@ body{
     padding:25px;
     border-radius:15px;
     width:100%;
-    max-width:450px;
+ 
+    max-width:850px;
+    width:95%;
 
     max-height:90vh;      /* Prevents it from being taller than the screen */
     overflow-y:auto;      /* Allows scrolling if content is too tall */
@@ -164,86 +166,89 @@ body{
     }
 
     /* TICKET STYLE */
-   .ticket{
-    display:none;
-    width:420px;
-    max-width:100%;
-    margin:20px auto;
-    padding:25px;
-    box-sizing:border-box;
-    border-radius:15px;
-    background:#747488;
+.ticket{
+    background:#6d6d8b;
+    border-radius:20px;
+    padding:40px;
     color:#fff;
     position:relative;
-    text-align:left;
-    box-shadow:0 8px 20px rgba(0,0,0,.4);
     font-family:'Poppins',sans-serif;
-}   /* <-- THIS IS MISSING */
-
-.ticket .logo{
-    width:60px;
-    position:absolute;
-    top:20px;
-    right:20px;
 }
-    .ticket h3 {
-      margin-top: 0;
-      font-size: 22px;
-      color: #ecaa52;
-      letter-spacing: 1px;
-    }
 
-.ticket p{
-    margin:8px 0;
-    padding:0;
-    line-height:1.35;
-    font-size:15px;
+.ticket h2{
+    font-size:42px;
+    color:#f6c65b;
+    margin-bottom:35px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.info{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    padding-bottom:10px;
+}
+
+.label{
+    width:170px;
+    color:#f6c65b;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.value{
+    flex:1;
+    font-size:17px;
+    font-weight:600;
     color:#fff;
-    text-align:left;
+    text-align:right;
 }
 
-  #qrCanvas{
+#tID{
+    font-size:14px;
+    color:#ddd;
+    letter-spacing:1px;
+    word-break:break-all;
+}
+
+.logo{
+    position:absolute;
+    top:30px;
+    right:30px;
+    width:75px;
+}
+
+#qrCanvas{
     display:block;
-    width:100px;
-    height:100px;
-    margin:15px auto;
+    margin:40px auto 0;
+    background:#fff;
+    padding:8px;
+    border-radius:12px;
 }
 .download-btn{
     display:none;
     width:100%;
     max-width:300px;
-    margin:20px auto 0;
+    margin:20px auto;
     padding:14px;
-
     background:#c90101;
     color:#fff;
     border:none;
     border-radius:10px;
-
     font-size:16px;
-    font-weight:bold;
     cursor:pointer;
-    transition:.3s;
-}
-.ticket-info{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top:15px;
-}
-
-.ticket-info div{
-    font-size:15px;
-    line-height:1.4;
-}
-
-.location{
-    margin-top:12px;
-}
-
-#qrCanvas{
-    display:block;
-    margin:20px auto 0;
 }
 .download-btn:hover{
     background:#900000;
@@ -313,28 +318,56 @@ body{
       </div>
 
       <!-- Ticket Preview -->
-      <div id="ticket" class="ticket">
-        <img src="./logo.png" class="logo" crossorigin="anonymous">
-<h3>My Hood Different </h3>
+<div id="ticket" class="ticket">
 
-<div class="ticket-info">
-    <div><strong>Name:</strong> <span id="tName"></span></div>
-    <div><strong>Type:</strong> <span id="tType"></span></div>
-    <div><strong>Price:</strong> R<span id="tPrice"></span></div>
-    <div><strong>Seat:</strong> <span id="tSeat"></span></div>
-    <div><strong>Ticket ID:</strong> <span id="tID"></span></div>
-    <div><strong>Date:</strong> 08 August 2026</div>
+    <img src="logo.png" class="logo">
 
-    <div class="location">
-        <strong>Location</strong><br>
-        3 Mmamashianoke St<br>
-        Thembisa, Gauteng
+    <h2>My Hood Different</h2>
+
+    <div class="info">
+
+    <div class="row">
+        <span class="label">NAME</span>
+        <span class="value" id="tName"></span>
     </div>
+
+    <div class="row">
+        <span class="label">TICKET</span>
+        <span class="value" id="tType"></span>
+    </div>
+
+    <div class="row">
+        <span class="label">PRICE</span>
+        <span class="value">R<span id="tPrice"></span></span>
+    </div>
+
+    <div class="row">
+        <span class="label">SEAT</span>
+        <span class="value" id="tSeat"></span>
+    </div>
+
+    <div class="row">
+        <span class="label">TICKET ID</span>
+        <span class="value" id="tID"></span>
+    </div>
+
+    <div class="row">
+        <span class="label">DATE</span>
+        <span class="value">08 August 2026</span>
+    </div>
+
+    <div class="row">
+        <span class="label">VENUE</span>
+        <span class="value">
+            3 Mmamashianoke St<br>
+            Thembisa, Gauteng
+        </span>
+    </div>
+
 </div>
 
-<canvas id="qrCanvas"></canvas>
-
-</div> <!-- End Ticket -->
+    <canvas id="qrCanvas"></canvas>
+</div>
 <button
     id="downloadBtn"
     class="download-btn"
@@ -384,6 +417,8 @@ function openTicketPopup(type, price) {
     });
 
     document.getElementById("ticketPopup").style.display = "flex";
+    document.getElementById("ticket").style.display = "none";
+document.getElementById("downloadBtn").style.display = "none";
 
 }
 
@@ -400,10 +435,10 @@ function closePopup(){
 
     document.getElementById("downloadBtn").style.display = "none";
 
-    const btn = document.querySelector(".gen-btn");
+    currentTicket = {};
 
-    btn.disabled = false;
-    btn.innerHTML = "Generate Ticket";
+    document.querySelector(".gen-btn").disabled = false;
+    document.querySelector(".gen-btn").textContent = "Generate Ticket";
 
 }
 
@@ -576,6 +611,7 @@ window.onclick=function(e){
     }
 
 };
+
 </script>
 
 </body>
