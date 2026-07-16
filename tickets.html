@@ -36,12 +36,11 @@ body{
       font-weight: 800;
       color: #c90101;
     }
-
-    p {
-      text-align: center;
-      margin-bottom: 34px;
-      color: #eff1f3;
-    }
+.container > p{
+    text-align:center;
+    margin-bottom:34px;
+    color:#eff1f3;
+}
 
     .ticket-option {
       background:#111;
@@ -165,28 +164,28 @@ body{
     }
 
     /* TICKET STYLE */
-    .ticket{
+   .ticket{
     display:none;
-    width:300px;          /* Change this to your preferred size */
+    width:420px;
     max-width:100%;
     margin:20px auto;
-    padding:18px;
+    padding:25px;
+    box-sizing:border-box;
     border-radius:15px;
-    background: #747488;
+    background:#747488;
     color:#fff;
     position:relative;
     text-align:left;
     box-shadow:0 8px 20px rgba(0,0,0,.4);
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Poppins',sans-serif;
+}   /* <-- THIS IS MISSING */
+
+.ticket .logo{
+    width:60px;
+    position:absolute;
+    top:20px;
+    right:20px;
 }
-
-    .ticket .logo {
-      width: 60px;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
     .ticket h3 {
       margin-top: 0;
       font-size: 22px;
@@ -194,10 +193,14 @@ body{
       letter-spacing: 1px;
     }
 
-    .ticket p {
-      margin: 6px 0;
-      font-size: 15px;
-    }
+.ticket p{
+    margin:8px 0;
+    padding:0;
+    line-height:1.35;
+    font-size:15px;
+    color:#fff;
+    text-align:left;
+}
 
   #qrCanvas{
     display:block;
@@ -222,7 +225,26 @@ body{
     cursor:pointer;
     transition:.3s;
 }
+.ticket-info{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:15px;
+}
 
+.ticket-info div{
+    font-size:15px;
+    line-height:1.4;
+}
+
+.location{
+    margin-top:12px;
+}
+
+#qrCanvas{
+    display:block;
+    margin:20px auto 0;
+}
 .download-btn:hover{
     background:#900000;
     transform:translateY(-2px);
@@ -245,6 +267,15 @@ body{
         width: 100%;
       }
     }
+    #tID{
+    word-break:break-all;
+}
+
+#tName,
+#tType,
+#tSeat{
+    word-break:break-word;
+}
   </style>
 </head>
 
@@ -284,18 +315,24 @@ body{
       <!-- Ticket Preview -->
       <div id="ticket" class="ticket">
         <img src="./logo.png" class="logo" crossorigin="anonymous">
+<h3>My Hood Different </h3>
 
-        <h3>My Hood Different PASS</h3>
+<div class="ticket-info">
+    <div><strong>Name:</strong> <span id="tName"></span></div>
+    <div><strong>Type:</strong> <span id="tType"></span></div>
+    <div><strong>Price:</strong> R<span id="tPrice"></span></div>
+    <div><strong>Seat:</strong> <span id="tSeat"></span></div>
+    <div><strong>Ticket ID:</strong> <span id="tID"></span></div>
+    <div><strong>Date:</strong> 08 August 2026</div>
 
-        <p><strong>Name:</strong> <span id="tName"></span></p>
-        <p><strong>Type:</strong> <span id="tType"></span></p>
-        <p><strong>Price:</strong> R<span id="tPrice"></span></p>
-        <p><strong>Seat:</strong> <span id="tSeat"></span></p>
-        <p><strong>Ticket ID:</strong> <span id="tID"></span></p>
-        <p><strong>Date:</strong> 08 August 2026</p>
-        <p><strong>Location:</strong> Tembisa</p>
+    <div class="location">
+        <strong>Location</strong><br>
+        3 Mmamashianoke St<br>
+        Thembisa, Gauteng
+    </div>
+</div>
 
-        <canvas id="qrCanvas"></canvas>   
+<canvas id="qrCanvas"></canvas>
 
 </div> <!-- End Ticket -->
 <button
@@ -304,135 +341,241 @@ body{
     onclick="downloadTicket()">
     Download Ticket
 </button>
+
+    </div> <!-- End Popup Content -->
+  </div> <!-- End Popup -->
+
+  </div> <!-- End Container -->
 <script>
 const ticketOptions = [
-  { type: 'General Admission', price: 0.00 },
+    { type: "General Admission", price: 0.00 }
 ];
 
-let selectedType = '';
+let selectedType = "";
 let selectedPrice = 0;
 
-/* Open Popup */
+let currentTicket = {};
+
+// ==========================
+// OPEN POPUP
+// ==========================
 function openTicketPopup(type, price) {
-  selectedType = type;
-  selectedPrice = price;
 
-  // Populate dropdown with all ticket options
-  const select = document.getElementById("ticketType");
-  select.innerHTML = '';
-  ticketOptions.forEach(opt => {
-    const option = document.createElement('option');
-    option.value = opt.type;
-    option.dataset.price = opt.price;
-    option.textContent = `${opt.type} – R${opt.price}`;
-    if (opt.type === type) option.selected = true;
-    select.appendChild(option);
-  });
+    selectedType = type;
+    selectedPrice = price;
 
-  document.getElementById("ticketPopup").style.display = "flex";
+    const select = document.getElementById("ticketType");
+    select.innerHTML = "";
+
+    ticketOptions.forEach(ticket => {
+
+        const option = document.createElement("option");
+
+        option.value = ticket.type;
+        option.dataset.price = ticket.price;
+        option.textContent = `${ticket.type} - R${ticket.price.toFixed(2)}`;
+
+        if(ticket.type === type){
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+
+    });
+
+    document.getElementById("ticketPopup").style.display = "flex";
+
 }
 
-/* Close Popup */
-function closePopup() {
-  document.getElementById("ticketPopup").style.display = "none";
+// ==========================
+// CLOSE POPUP
+// ==========================
+function closePopup(){
+
+    document.getElementById("ticketPopup").style.display = "none";
+
+    document.getElementById("buyerName").value = "";
+
+    document.getElementById("ticket").style.display = "none";
+
+    document.getElementById("downloadBtn").style.display = "none";
+
+    const btn = document.querySelector(".gen-btn");
+
+    btn.disabled = false;
+    btn.innerHTML = "Generate Ticket";
+
 }
 
-/* Update price when dropdown changes */
-function updatePrice() {
-  const select = document.getElementById("ticketType");
-  selectedType = select.value;
-  selectedPrice = parseInt(select.options[select.selectedIndex].dataset.price);
+// ==========================
+// UPDATE PRICE
+// ==========================
+function updatePrice(){
+
+    const select = document.getElementById("ticketType");
+
+    selectedType = select.value;
+
+    selectedPrice = parseFloat(
+        select.options[select.selectedIndex].dataset.price
+    );
+
 }
 
-/* Generate Ticket */
-function generateTicket() {
-  const name = document.getElementById("buyerName").value.trim();
-  if (!name) {
-    alert("Please enter your name.");
-    return;
-  }
+// ==========================
+// GENERATE TICKET
+// ==========================
+function generateTicket(){
 
-const ticketID = "SMH-2026-" + Math.random().toString(36).substr(2,6).toUpperCase();
-  const seat = "A" + Math.floor(Math.random() * 50 + 1);
+    const name = document.getElementById("buyerName").value.trim();
 
-  document.getElementById("tName").innerText = name;
-  document.getElementById("tType").innerText = selectedType;
-  document.getElementById("tPrice").innerText = selectedPrice;
-  document.getElementById("tSeat").innerText = seat;
-  document.getElementById("tID").innerText = ticketID;
+    if(name === ""){
+        alert("Please enter your full name.");
+        return;
+    }
 
-  const data = {
-    name: name,
-    type: selectedType,
-    ticketID: ticketID,
-    seat: seat
-};
+    const ticketID =
+        "SMH-2026-" +
+        Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
 
-fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-});
+    const seat =
+        "A" +
+        Math.floor(Math.random()*50 + 1);
 
-  new QRious({
-    element: document.getElementById("qrCanvas"),
-    value: `
-Skate My Hood 2026
-Name: ${name}
-Ticket: ${ticketID}
-Type: ${selectedType}
+    currentTicket = {
+
+        name,
+        type:selectedType,
+        price:selectedPrice,
+        seat,
+        ticketID
+
+    };
+
+    document.getElementById("tName").textContent = currentTicket.name;
+    document.getElementById("tType").textContent = currentTicket.type;
+    document.getElementById("tPrice").textContent = currentTicket.price.toFixed(2);
+    document.getElementById("tSeat").textContent = currentTicket.seat;
+    document.getElementById("tID").textContent = currentTicket.ticketID;
+
+    new QRious({
+
+        element:document.getElementById("qrCanvas"),
+
+        value:
+`Skate My Hood 2026
+
+Name: ${currentTicket.name}
+
+Ticket ID: ${currentTicket.ticketID}
+
+Seat: ${currentTicket.seat}
+
+Type: ${currentTicket.type}
+
 Date: 08 August 2026
-Location: Tembisa
-`,
-    size: 120
-  });
 
-document.getElementById("ticket").style.display = "block";
-document.getElementById("downloadBtn").style.display = "block";
+Location:
+3 Mmamashianoke St,
+Thembisa,
+Gauteng`,
 
-document.querySelector(".gen-btn").disabled = true;
-document.querySelector(".gen-btn").innerHTML = "✓ Ticket Generated";
-  
+        size:120
+
+    });
+
+    fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec",{
+
+        method:"POST",
+
+        body:JSON.stringify(currentTicket)
+
+    }).catch(error=>console.log(error));
+
+    document.getElementById("ticket").style.display="block";
+
+    document.getElementById("downloadBtn").style.display="block";
+
+    const btn=document.querySelector(".gen-btn");
+
+    btn.disabled=true;
+
+    btn.innerHTML="✓ Ticket Generated";
+
 }
-const data = {
-    name: name,
-    type: selectedType,
-    ticketID: ticketID,
-    seat: seat
-};
 
-fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-});
-/* Download Ticket */
-async function downloadTicket() {
+// ==========================
+// DOWNLOAD TICKET
+// ==========================
+async function downloadTicket(){
 
-    const ticket = document.getElementById("ticket");
-    const name = document.getElementById("tName").innerText.replace(/\s+/g, "_");
+    if(!currentTicket.ticketID){
 
-    try {
+        alert("Generate a ticket first.");
 
-        const canvas = await html2canvas(ticket, {
-            scale: 3,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: "#111"
+        return;
+
+    }
+
+    const ticket=document.getElementById("ticket");
+
+    try{
+
+        const canvas=await html2canvas(ticket,{
+
+            scale:3,
+
+            useCORS:true,
+
+            backgroundColor:"#747488"
+
         });
 
-        const link = document.createElement("a");
-        link.download = `SkateMyHood-${name}.png`;
-        link.href = canvas.toDataURL("image/png");
+        const image=canvas.toDataURL("image/png");
+
+        const link=document.createElement("a");
+
+        link.href=image;
+
+        link.download=`${currentTicket.ticketID}.png`;
+
+        document.body.appendChild(link);
+
         link.click();
 
-    } catch(err) {
-        console.error(err);
-        alert("Unable to download ticket.");
+        document.body.removeChild(link);
+
+        setTimeout(closePopup,500);
+
     }
-    setTimeout(() => {
-    closePopup();
-}, 500);
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Download failed.");
+
+    }
+
 }
 
+// ==========================
+// CLOSE POPUP WHEN CLICKING OUTSIDE
+// ==========================
+window.onclick=function(e){
+
+    const popup=document.getElementById("ticketPopup");
+
+    if(e.target===popup){
+
+        closePopup();
+
+    }
+
+};
 </script>
 
 </body>
