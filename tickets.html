@@ -311,11 +311,33 @@ body{
 
       <h2>Ticket Purchase</h2>
 
-      <div class="form-box">
-        <input type="text" id="buyerName" placeholder="Enter Full Name" />
-        <select id="ticketType" onchange="updatePrice()"></select>
-        <button class="gen-btn" onclick="generateTicket()">Generate Ticket</button>
-      </div>
+<div class="form-box">
+
+    <input
+        type="text"
+        id="buyerName"
+        placeholder="Enter Full Name"
+    >
+
+    <input
+        type="tel"
+        id="buyerPhone"
+        placeholder="Contact Number"
+    >
+
+    <input
+        type="email"
+        id="buyerEmail"
+        placeholder="Email Address (Optional)"
+    >
+
+    <select id="ticketType" onchange="updatePrice()"></select>
+
+    <button class="gen-btn" onclick="generateTicket()">
+        Generate Ticket
+    </button>
+
+</div>
 
       <!-- Ticket Preview -->
 <div id="ticket" class="ticket">
@@ -462,13 +484,19 @@ function updatePrice(){
 // ==========================
 function generateTicket(){
 
-    const name = document.getElementById("buyerName").value.trim();
+const name = document.getElementById("buyerName").value.trim();
+const phone = document.getElementById("buyerPhone").value.trim();
+const email = document.getElementById("buyerEmail").value.trim();
 
-    if(name === ""){
-        alert("Please enter your full name.");
-        return;
-    }
+if(name === ""){
+    alert("Please enter your full name.");
+    return;
+}
 
+if(phone === ""){
+    alert("Please enter your contact number.");
+    return;
+}
     const ticketID =
         "SMH-2026-" +
         Math.random()
@@ -480,15 +508,17 @@ function generateTicket(){
         "A" +
         Math.floor(Math.random()*50 + 1);
 
-    currentTicket = {
+currentTicket = {
 
-        name,
-        type:selectedType,
-        price:selectedPrice,
-        seat,
-        ticketID
+    name,
+    phone,
+    email,
+    type: selectedType,
+    price: selectedPrice,
+    seat,
+    ticketID
 
-    };
+};
 
     document.getElementById("tName").textContent = currentTicket.name;
     document.getElementById("tType").textContent = currentTicket.type;
@@ -522,7 +552,8 @@ Gauteng`,
 
     });
 
-    fetch("https://script.google.com/macros/s/AKfycbzYepPf5cWZ0Tw0fhbEXl3M2GdO6gYdJGdh615lXf6D3qdPLh7qdofr1Gx7QNC1Ke0/exec",{
+   console.log(currentTicket);
+    fetch("https://script.google.com/macros/s/AKfycbwTBiM5WAUIecfd-9LM-N-XX0oexN-_GVH2lSS75O0QwGZhyAJu0glnw6mGzGt54Tk6/exec",{
 
         method:"POST",
 
